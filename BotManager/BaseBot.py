@@ -5,11 +5,11 @@ import sqlite3 as sql
 import datetime
 
 
-
 class BaseBot(Client):
     """
     This class creates a Base Bot using the discord.py library
     """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._id = kwargs.get("identifier", None)
@@ -19,7 +19,8 @@ class BaseBot(Client):
         self._active = False
         self._logger = None
         if self._db and self._directory:
-            self._db = sql.connect(f"{path.join(self.directory, self._directory)}.db")
+            self._db = sql.connect(f"{path.join(self.directory, self._directory)}.db",
+                                   check_same_thread=False)  # hmm...
 
     @property
     def logger(self):

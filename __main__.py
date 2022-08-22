@@ -22,7 +22,8 @@ while True:
         except Exception as e:
             BotManager.logger.warning(str(e)+"\nenter `exit()` to quit")
             continue
-    if input("hit enter to quit"):
-        break
+    elif not DEBUG:
+        if input("hit enter to quit"):
+            break
 
 
