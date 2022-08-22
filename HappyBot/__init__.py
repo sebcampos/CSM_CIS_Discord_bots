@@ -1,8 +1,9 @@
 from random import choice
 
 import pandas as pd
-from discord import Embed, Color
+from discord import Embed, Color, Emoji  # TODO figure out this emoji bs
 from art import art
+from . import tools
 
 from BotManager.BaseBot import BaseBot
 from credentials import CLIENT_ID
@@ -11,6 +12,10 @@ from credentials import CLIENT_ID
 class HappyBot(BaseBot):
     client_id = CLIENT_ID
     GIR_URL = "https://static.wikia.nocookie.net/zimwiki/images/d/d2/Girdog.png/revision/latest?cb=20210819050259"
+    GITHUB_LOGO = "https://github.githubassets.com/images/modules/logos_page/Octocat.png"
+
+    def get_emails(self):
+        return pd.read_sql("select * from emails", self.db)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,11 +31,21 @@ class HappyBot(BaseBot):
             embed = await self.basic_embed(title="Punny", description=self.random_pun())
             await message.channel.send(embed=embed)
         if message.content.startswith("::project"):
-            embed = await self.basic_embed(title="Project", description=self.random_pun())
-            await message.channel.send()
-        if message.content.startswith("::test"):
-            embed = await self.basic_embed(False)
+            embed = await self.basic_embed(title="Project", description=tools.project_message, thumbnail=self.GITHUB_LOGO)
             await message.channel.send(embed=embed)
+        if message.content.startswith("::email"):
+            add_to_db = tools.add_email_to_db(message.author.name, message.content, self)
+            if add_to_db:
+                embed = await self.basic_embed("Success!", f"{message.author.name} successfully registered")
+                await message.channel.send(embed=embed)
+            else:
+                embed = await self.error(message)
+                await message.channel.send(embed=embed)
+
+    async def error(self, message):
+        embed = await self.basic_embed("Crap",
+                                       f"Sorry {message.author.name}\nsomething when wrong message me so we can fix it...")
+        return embed
 
     async def basic_embed(self, title, description, thumbnail=GIR_URL):
         embed = Embed(

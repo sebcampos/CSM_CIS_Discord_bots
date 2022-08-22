@@ -6,6 +6,17 @@ import re
 import chromedriver_binary
 
 
+project_message = \
+"""
+```
+Lets build bots! send a message or send your email to the bot
+by using the command: 
+::email <github_email> 
+to be added to the project  👍 
+```
+https://github.com/sebcampos/CSM_CIS_Discord_bots
+"""
+
 def scrape_puns():
     options = Options()
     options.headless = True
@@ -17,3 +28,18 @@ def scrape_puns():
     driver.quit()
     cleaned_list = [re.sub(r"^[0-9]{1,3}\. ", "", i) for i in puns_list]
     return cleaned_list
+
+
+def add_email_to_db(user, message, bot):
+    message = message.replace("::email", "")
+    email = re.search("([a-zA-Z0-9]+@.+)", message)  # not the best email validator
+    if not email:
+        return False
+    email = email.groups()[0].strip()
+    data = \
+    {
+        "username": [str(user)],
+        "email":  [email]
+    }
+    bot.add_to_database("emails", data)
+    return True
