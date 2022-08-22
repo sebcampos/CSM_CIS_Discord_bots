@@ -22,13 +22,14 @@ class HappyBot(BaseBot):
         # self.add_to_database("puns", {"puns_from_scrape":tools.scrape_puns()})
         self.puns = self.fetch_from_database("select * from puns").puns_from_scrape.tolist()
 
-    def get_emails(self):
-        return pd.read_sql("select * from emails", self.db)
-
     async def on_ready(self):
         self.logger = str(self.user)
         self.logger.info(f"{self.user} is connected")
         self.active = True
+
+    async def on_member_join(self, member):
+        embed = self.basic_embed(f"Welcome {member.name}  🎉 🎉 🎉", tools.welcome_message_content)
+        await member.send(embed=embed)
 
     async def on_message(self, message):
         if message.content.startswith("::punny"):
@@ -51,7 +52,8 @@ class HappyBot(BaseBot):
                                        f"Sorry {message.author.name}\nsomething when wrong message me so we can fix it...")
         return embed
 
-    async def basic_embed(self, title, description, thumbnail=GIR_URL):
+    @staticmethod
+    async def basic_embed(title, description, thumbnail=GIR_URL):
         embed = Embed(
             title=title,
             description=description,
@@ -70,3 +72,6 @@ class HappyBot(BaseBot):
 
     def random_pun(self):
         return "*" + choice(self.puns) + "*\n\t" + art("random")
+
+    def get_emails(self):
+        return pd.read_sql("select * from emails", self.db)

@@ -2,7 +2,11 @@ import logging
 
 
 def init_logger(name) -> logging.Logger:
-    # Creating and Configuring Logger
+    """
+    Receives the name to add to the logger
+    :param name: str
+    :return: void
+    """
 
     Log_Format = f"[%(asctime)s][%(name)s][%(levelname)s\t] - %(message)s"
 

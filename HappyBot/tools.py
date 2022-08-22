@@ -1,13 +1,11 @@
-# import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import re
 import chromedriver_binary
 
-
 project_message = \
-"""
+    """
 ```
 Check out the CIS Club!
 Here is the google form to sign up ⬇️
@@ -32,6 +30,14 @@ Github for Discord Bot(s) project ⬇️
 https://github.com/sebcampos/CSM_CIS_Discord_bots
 """
 
+
+welcome_message_content = \
+"""
+"*I am happy bot, \n*
+*send me the command `::punny` and ill tell you a joke...*"
+"""
+
+
 def scrape_puns():
     options = Options()
     options.headless = True
@@ -52,9 +58,9 @@ def add_email_to_db(user, message, bot):
         return False
     email = email.groups()[0].strip()
     data = \
-    {
-        "username": [str(user)],
-        "email":  [email]
-    }
+        {
+            "username": [str(user)],
+            "email": [email]
+        }
     bot.add_to_database("emails", data)
     return True
