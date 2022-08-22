@@ -4,8 +4,18 @@ from HappyBot import HappyBot
 
 DEBUG = True
 
-happy_id = BotManager.add_bot(HappyBot, "HappyBot", HappyBot.client_id)
+# adding a bot
+happy_id = BotManager.add_bot(
+    HappyBot,  # class to be initialized
+    "HappyBot",  # directory containing the bot
+    HappyBot.client_id  # The client ID provided by discord
+)
 
+# retrieve instance from BotManager via id
+happy = BotManager.get_bot(happy_id)
+
+
+# loop to wait until all bots are int `active` state
 BotManager.logger.info("Initalizing Bots ...")
 while not BotManager.all_bots_active():
     continue

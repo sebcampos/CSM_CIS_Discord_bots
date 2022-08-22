@@ -74,4 +74,4 @@ class HappyBot(BaseBot):
         return "*" + choice(self.puns) + "*\n\t" + art("random")
 
     def get_emails(self):
-        return pd.read_sql("select * from emails", self.db)
+        return pd.read_sql("select username, email from emails", self.db)
