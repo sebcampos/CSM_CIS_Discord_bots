@@ -33,7 +33,7 @@ def add_bot(bot: object, directory: str, client_id: str) -> str or bool:
     # Creates a new thread with the bots run method as the target (run method inhereted from the Client Class)
     # TODO change threading to asyncio if possible
     try:
-        new_thread = threading.Thread(target=new_bot.run, args=(client_id,), kwargs={"log_handler": None})
+        new_thread = threading.Thread(target=new_bot.run, args=(client_id,)) #, kwargs={"log_handler": None})
         new_thread.daemon = True
         new_thread.start()
     except LoginFailure:

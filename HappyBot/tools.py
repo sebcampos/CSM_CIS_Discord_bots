@@ -9,10 +9,25 @@ import chromedriver_binary
 project_message = \
 """
 ```
+Check out the CIS Club!
+Here is the google form to sign up ⬇️
+``` 
+- https://forms.gle/3CtiQcdLPLE5PNNAA
+```
+Right here is the discord ⬇️
+``` 
+- https://discord.gg/rbUa47a2
+```
+We are excited to start many projects one of which is building
+discord bots, so 
 Lets build bots! send a message or send your email to the bot
 by using the command: 
 ::email <github_email> 
-to be added to the project  👍 
+to be added to the project  👍
+we are hoping to get server set up, 
+until then happy bot might be down every
+so often 🤖
+Github for Discord Bot(s) project ⬇️  
 ```
 https://github.com/sebcampos/CSM_CIS_Discord_bots
 """

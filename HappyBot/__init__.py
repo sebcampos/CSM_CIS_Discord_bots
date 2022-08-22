@@ -17,12 +17,13 @@ class HappyBot(BaseBot):
     GIR_URL = "https://static.wikia.nocookie.net/zimwiki/images/d/d2/Girdog.png/revision/latest?cb=20210819050259"
     GITHUB_LOGO = "https://github.githubassets.com/images/modules/logos_page/Octocat.png"
 
-    def get_emails(self):
-        return pd.read_sql("select * from emails", self.db)
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # self.add_to_database("puns", {"puns_from_scrape":tools.scrape_puns()})
         self.puns = self.fetch_from_database("select * from puns").puns_from_scrape.tolist()
+
+    def get_emails(self):
+        return pd.read_sql("select * from emails", self.db)
 
     async def on_ready(self):
         self.logger = str(self.user)
