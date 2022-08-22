@@ -36,12 +36,14 @@ class HappyBot(BaseBot):
             embed = await self.basic_embed(title="Punny", description=self.random_pun())
             await message.channel.send(embed=embed)
         if message.content.startswith("::project"):
-            embed = await self.basic_embed(title="Project", description=tools.project_message, thumbnail=self.GITHUB_LOGO)
+            embed = await self.basic_embed(title="Project", description=tools.project_message,
+                                           thumbnail=self.GITHUB_LOGO)
             await message.channel.send(embed=embed)
         if message.content.startswith("::email"):
             add_to_db = tools.add_email_to_db(message.author.name, message.content, self)
             if add_to_db:
                 embed = await self.basic_embed("Success!", f"{message.author.name} successfully registered")
+                self.logger.info(f"{message.author.name} added to database")
                 await message.channel.send(embed=embed)
             else:
                 embed = await self.error(message)
@@ -60,8 +62,8 @@ class HappyBot(BaseBot):
             colour=Color.random()
         )
         embed.set_thumbnail(url=thumbnail)
-        #embed.set_image(url="https://static.wikia.nocookie.net/zimwiki/images/d/d2/Girdog.png/revision/latest?cb=20210819050259")
-        #embed.add_field(name="NAME", value="wut", inline=False)
+        # embed.set_image(url="https://static.wikia.nocookie.net/zimwiki/images/d/d2/Girdog.png/revision/latest?cb=20210819050259")
+        # embed.add_field(name="NAME", value="wut", inline=False)
         return embed
 
     def fetch_from_database(self, sql) -> pd.DataFrame:
