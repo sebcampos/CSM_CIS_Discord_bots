@@ -10,6 +10,9 @@ from credentials import CLIENT_ID
 
 
 class HappyBot(BaseBot):
+    """
+    A basic bot made from the BaseBot
+    """
     client_id = CLIENT_ID
     GIR_URL = "https://static.wikia.nocookie.net/zimwiki/images/d/d2/Girdog.png/revision/latest?cb=20210819050259"
     GITHUB_LOGO = "https://github.githubassets.com/images/modules/logos_page/Octocat.png"
