@@ -1,2 +1,4 @@
 # CSM CIS Club Discord Bots 
-i dont know what to put here :D
+```
+Python 3.10.5
+```
